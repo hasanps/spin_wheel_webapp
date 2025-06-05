@@ -1,1 +1,47 @@
-<!DOCTYPE html><html><head><title>Spin Wheel</title></head><body>Hello from Spin Wheel</body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Spin Wheel</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 80px;
+    }
+    #spinButton {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 22px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Spin the Wheel!</h1>
+  <button id="spinButton">🎯 Spin</button>
+  <div id="result"></div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // expand full height
+
+    document.getElementById("spinButton").addEventListener("click", () => {
+      const amount = Math.floor(Math.random() * 20) + 1;
+      document.getElementById("result").innerText = `You won ₹${amount}`;
+
+      // Send result back to the bot
+      tg.sendData(JSON.stringify({ type: "spin_result", amount: amount }));
+    });
+  </script>
+</body>
+</html>
+Added spin wheel and Telegram WebApp integration
